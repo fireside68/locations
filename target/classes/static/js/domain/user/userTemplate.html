@@ -1,0 +1,15 @@
+<div class="container-fluid">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="jumbotron">
+			<h1>Users</h1>
+		</div>
+
+		<div class="list-group">
+			<a ng-repeat="user in userController.users"
+				ng-href="#user/findUser/{{user.username}}" class="list-group-item"> <span
+				class="glyphicon glyphicon-user" aria-hidden="true"></span>
+				{{user.username}}
+			</a>
+		</div>
+	</div>
+</div>
