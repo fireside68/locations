@@ -32,5 +32,10 @@ angular.module('app')
     controller: 'LoginController',
     controllerAs: 'loginController'
   }).
+  when('/user/admin', {
+	  templateUrl: baseRoute + 'user/admin/adminTemplate.html',
+	  controller: 'AdminController',
+	  controllerAs: 'adminController'
+  }).
 	otherwise('/home');
 }])

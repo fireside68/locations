@@ -12,7 +12,7 @@ angular.module('app').controller(
 	  "role" : ctrl.role,
 	  }
 	  ctrl.roleSelected = function(role)
-		{
+		{	
 			ctrl.role = role;
 		}
 	LoginService.getLogin(login)
