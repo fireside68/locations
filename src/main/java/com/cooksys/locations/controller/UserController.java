@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cooksys.locations.entity.User;
 import com.cooksys.locations.model.GetAllUsersResponse;
 import com.cooksys.locations.model.GetUserResponse;
+import com.cooksys.locations.model.LoginResponse;
 import com.cooksys.locations.service.UserService;
 
 @RestController
@@ -25,6 +26,7 @@ public class UserController {
 	private UserService usrsrv;
 	
 	private Logger log = LoggerFactory.getLogger(LocationsController.class);
+
 	
 	@RequestMapping("allUsers")
 	public @ResponseBody List<GetAllUsersResponse> showAllUsers() {
@@ -37,7 +39,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public @ResponseBody Boolean loginUser(@RequestBody User user) {
+	public LoginResponse loginUser(@RequestBody GetUserResponse user) {
 		return usrsrv.loginService(user);
 	}
 	

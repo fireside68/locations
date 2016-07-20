@@ -1,31 +1,31 @@
 angular.module('app').controller(
 	'LoginController',
-	['LoginService', '$location', '$routeParams', function(LoginService, $routeParams){
+	['LoginService', '$location', function(LoginService, $location){
 
 	var ctrl = this;
-	ctrl.availableRoles = ['admin', 'user', 'other']
-	
+
 	ctrl.login = function() {
 	  var login = {
 	  "username" : ctrl.username,
-	  "password" : ctrl.password,
-	  "role" : ctrl.role,
+	  "password" : ctrl.password
 	  }
-	  ctrl.roleSelected = function(role)
-		{	
-			ctrl.role = role;
-		}
+	  
+	 
 	LoginService.getLogin(login)
 		.then(function(result) {
-		ctrl.login = result.data;
-		console.dir(ctrl.login)
-		if(ctrl.login === true){
-			console.dir(ctrl.login);
-		} else {
-			console.dir(result.data);
-			$location.path('#/user/login/loginTemplate.html')
+			 var response = result.data
+		console.log("result: ")
+		console.dir(result)
+		if(response.username === "invalid"){
+			$location.path('/user')
+		}else
+			if(response.admin === true){
+				$location.path('/admin')
+				} else {
+				console.dir(response.admin);
+				$location.path('/user')
 		}
 	});
 
-	console.dir(ctrl.login);}
+	console.dir(login);}
 }])

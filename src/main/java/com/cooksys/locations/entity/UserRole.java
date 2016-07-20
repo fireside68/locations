@@ -68,6 +68,12 @@ public class UserRole {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "UserRole [role=" + role + "]";
+	}
+	
 	
 	
 	

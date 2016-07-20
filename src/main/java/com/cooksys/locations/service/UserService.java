@@ -2,13 +2,15 @@ package com.cooksys.locations.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cooksys.locations.entity.Location;
 import com.cooksys.locations.entity.User;
 import com.cooksys.locations.model.GetAllUsersResponse;
 import com.cooksys.locations.model.GetUserResponse;
+import com.cooksys.locations.model.LoginResponse;
 import com.cooksys.locations.repository.LocationRepository;
 import com.cooksys.locations.repository.UserRepository;
 
@@ -22,8 +24,10 @@ public class UserService {
 	LocationRepository locRepo;
 	@Autowired
 	LocationService locsrv;
-	
-	private GetUserResponse gur;	
+
+	private Logger log = LoggerFactory.getLogger(UserService.class);
+
+	private GetUserResponse gur;
 
 	public List<GetAllUsersResponse> getAll() {
 		return GetAllUsersResponse.listAll(repo.findAll());
@@ -35,46 +39,42 @@ public class UserService {
 
 	public Boolean verifyPassword(GetUserResponse gur) {
 		GetUserResponse temp = getUser(gur.getUsername());
-		if (temp.equals(gur)) {
+		if ((temp != null) && (temp.equals(gur))) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public Boolean loginService(User user) {
-		Location location = new Location();
-		gur = getUser(user.getUsername());
-		Boolean verify = verifyPassword(gur);
-		if (locRepo.findByTitle(user.getTitle()) != null) {
-			location = locRepo.findByTitle(user.getTitle());
-			locsrv.incrementHits(location);
-			if (verify == true) {
-				locsrv.decrementHits(location);
-				return true;
-			} else {
-				return false;
+	public LoginResponse loginService(GetUserResponse user) {
+		LoginResponse lr = new LoginResponse();
+		System.out.println(user.toString());
+		Boolean verify = verifyPassword(user);
+		if (verify == false) {
+			lr.setUsername("invalid");
+			return lr;
+		} else {
+			lr.setUsername(user.getUsername());
+			String test = repo.findByUsername(user.getUsername()).getRole().getRole();
+			log.debug("{}",test);
+			if (test.equals("admin")) {
+				lr.setAdmin(true);
 			}
-		} else if (verify == true) {
-			location = locRepo.findByTitle(user.getTitle());
-			locsrv.decrementHits(location);
-			return true;
-		} else
-			return false;
+			return lr;
+		}
+
 	}
-	
-	public User addUser(User user){
-		if (locRepo.findByTitle(user.getTitle()) != null){
+
+	public User addUser(User user) {
+		if (locRepo.findByTitle(user.getTitle()) != null) {
 			locsrv.addConversion(user.getLocation());
 			repo.save(user);
 			return user;
-		}else {
+		} else {
 			repo.save(user);
 			return user;
 		}
-			
+
 	}
-	
-	
 
 }
