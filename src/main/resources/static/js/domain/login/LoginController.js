@@ -3,17 +3,7 @@ angular.module('app').controller(
 	['LoginService', '$location', '$window', '$timeout',  function(LoginService, $location, $window, $timeout){
 
 	var ctrl = this;
-	
-	ctrl.here = "LoginController reporting for duty";
-		
-	ctrl.isRegistered = function(flag){
-		return flag;
-	};
-	
-	ctrl.isValid = function(flag) {
-		return flag;
-	};
-	
+
 	ctrl.login = function() {
 	  var login = {
 	  "username" : ctrl.username,
@@ -28,6 +18,7 @@ angular.module('app').controller(
 			 } else if(response.username === 'invalid'){
 				 $location.path('/login/loginUnsuccessfulTemplate.html');
 			 }else {
+				 LoginService.user(response)
 				 if(response.admin === true){
 					 $timeout(function() { $location.path('/admin') }, 1000)
 				} else {
@@ -35,6 +26,6 @@ angular.module('app').controller(
 				}
 			 }
 	});
-	  
+
 	}
 }])

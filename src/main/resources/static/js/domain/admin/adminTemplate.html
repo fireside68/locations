@@ -12,5 +12,17 @@
 				<li ng-class="{active:panel.isSelected(3)}"><a href ng-click="tab = 3">Tab 3</a></li>
 			</ul>
     </div>
+		<div ng-show="panel.isSelected(1)">
+			<h1>Test Headline</h1>
+			<p>This is test space</p>
+		</div>
+		<div ng-show="panel.isSelected(2)">
+			<h1>Test Headline</h1>
+			<p>This is test space</p>
+		</div>
+		<div ng-show="panel.isSelected(3)">
+			<h1>Test Headline</h1>
+			<p>This is test space</p>
+		</div>
   </div>
 </div>

@@ -1,6 +1,6 @@
 angular.module('app')
-.config(['$routeProvider', 'baseRoute', 'homePage',
-      function config($routeProvider, baseRoute, homePage) {
+.config(['$routeProvider', 'baseRoute', 'homePage', 'LoginService', 'AdminService',
+      function config($routeProvider, baseRoute, homePage, LoginService, AdminService) {
 
 	$routeProvider.
 	when('/home', {
@@ -26,7 +26,8 @@ angular.module('app')
 
 		templateUrl: baseRoute + 'user/userDetailTemplate.html',
 		controller: 'UserDetailController',
-		controllerAs: 'userDetailController'
+		controllerAs: 'userDetailController',
+    loginRequired: true
 	}).
   when('/login', {
     templateUrl: baseRoute + '/login/loginTemplate.html',
@@ -47,7 +48,8 @@ angular.module('app')
 	  templateUrl: baseRoute + '/admin/adminTemplate.html',
 	  controller: 'AdminController',
 	  controllerAs: 'adminController',
-	  loginRequired: true
+	  loginRequired: true,
+    adminRequired: true,
   }).
   when('/signup', {
 	  templateUrl: baseRoute + '/signup/signupTemplate.html',
