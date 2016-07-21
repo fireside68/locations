@@ -24,12 +24,12 @@ angular.module('app').controller(
 			 var response = result.data;
 			 console.dir(response);
 			 if(response.username === 'unregistered'){
-				 $location.path('login/userNotFound.html');
+				 $location.path('/login/userNotFoundTemplate.html');
 			 } else if(response.username === 'invalid'){
-				 $location.path('login/loginUnsuccessful.html');
-			 } else {
+				 $location.path('/login/loginUnsuccessfulTemplate.html');
+			 }else {
 				 if(response.admin === true){
-					 $timeout(function() { $location.path('/admin') }, 1)
+					 $timeout(function() { $location.path('/admin') }, 1000)
 				} else {
 					$location.path('/user')
 				}

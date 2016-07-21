@@ -33,6 +33,16 @@ angular.module('app')
     controller: 'LoginController',
     controllerAs: 'loginController'
   }).
+  when('/login/loginUnsuccessfulTemplate.html', {
+	templateUrl: baseRoute + '/login/loginUnsuccessfulTemplate.html',
+	controller: 'LoginController',
+	controllerAs: 'loginController'
+  }).
+  when('/login/userNotFoundTemplate.html', {
+	  templateUrl: baseRoute + '/login/userNotFoundTemplate.html',
+	  controller: 'LoginController',
+	  controllerAs: 'loginController'
+  }).
   when('/admin', {
 	  templateUrl: baseRoute + '/admin/adminTemplate.html',
 	  controller: 'AdminController',
