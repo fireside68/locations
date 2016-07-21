@@ -15,6 +15,7 @@ angular.module('app')
 		templateUrl: baseRoute + 'user/userTemplate.html',
 		controller: 'UserController',
 		controllerAs: 'userController',
+		loginRequired: true,
 		resolve: {
 			allUsers: function(UserService){
 				return UserService.getAllUsers();
@@ -27,15 +28,27 @@ angular.module('app')
 		controller: 'UserDetailController',
 		controllerAs: 'userDetailController'
 	}).
-  when('/user/login', {
-    templateUrl: baseRoute + 'user/login/loginTemplate.html',
+  when('/login', {
+    templateUrl: baseRoute + '/login/loginTemplate.html',
     controller: 'LoginController',
     controllerAs: 'loginController'
+  }).
+  when('/login/unsuccessful', {
+	  templateUrl: baseRoute + '/login/loginUnsuccessful.html'
+  }).
+  when('/login/nouser', {
+	  templateUrl: baseRoute + '/login/userNotFound.html'
   }).
   when('/admin', {
 	  templateUrl: baseRoute + '/admin/adminTemplate.html',
 	  controller: 'AdminController',
-	  controllerAs: 'adminController'
+	  controllerAs: 'adminController',
+	  loginRequired: true
+  }).
+  when('/signup', {
+	  templateUrl: baseRoute + '/signup/signupTemplate.html',
+	  controller: 'SignupController',
+	  controllerAs: 'signupController'
   }).
 	otherwise('/home');
 }])

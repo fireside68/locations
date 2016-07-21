@@ -48,19 +48,23 @@ public class UserService {
 
 	public LoginResponse loginService(GetUserResponse user) {
 		LoginResponse lr = new LoginResponse();
-		System.out.println(user.toString());
-		Boolean verify = verifyPassword(user);
-		if (verify == false) {
-			lr.setUsername("invalid");
+		if (repo.findByUsername(user.getUsername()) == null) {
+			lr.setUsername("unregistered");
 			return lr;
 		} else {
-			lr.setUsername(user.getUsername());
-			String test = repo.findByUsername(user.getUsername()).getRole().getRole();
-			log.debug("{}",test);
-			if (test.equals("admin")) {
-				lr.setAdmin(true);
+			Boolean verify = verifyPassword(user);
+			if (verify == false) {
+				lr.setUsername("invalid");
+				return lr;
+			} else {
+				lr.setUsername(user.getUsername());
+				String test = repo.findByUsername(user.getUsername()).getRole().getRole();
+				log.debug("{}", test);
+				if (test.equals("admin")) {
+					lr.setAdmin(true);
+				}
+				return lr;
 			}
-			return lr;
 		}
 
 	}

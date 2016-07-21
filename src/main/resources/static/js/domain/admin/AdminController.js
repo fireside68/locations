@@ -1,8 +1,10 @@
-angular.module('app').controller('AdminController', ['AdminService', 'admin', function(AdminService, admin){
+angular.module('app')
+.controller('AdminController', 
+		['AdminService', '$location', 
+		 function(AdminService, $location){
 
 	var ctrl = this;
 	
-	ctrl.admin = admin.data;
-	
-	console.dir(ctrl.admin);
+	ctrl.url = $location.url();
+		
 }])
