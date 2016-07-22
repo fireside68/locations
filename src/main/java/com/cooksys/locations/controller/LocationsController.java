@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,5 +39,22 @@ public class LocationsController {
 	@RequestMapping("/conversionRate/{title}")
 	public @ResponseBody Double conversionRate(@PathVariable String title){
 		return locsrv.conversionRate(title);
+	}
+	
+	@RequestMapping("/addHits")
+	public @ResponseBody Location addHits(@RequestBody Location location){
+		locsrv.incrementHits(location);
+		return location;
+	}
+	
+	@RequestMapping("/decrementHits")
+	public @ResponseBody Location decrementHits(@RequestBody Location location){
+		locsrv.decrementHits(location);
+		return location;
+	}
+	
+	@RequestMapping(value = "/addLocation", method = RequestMethod.POST)
+	public @ResponseBody Location addLocation(@RequestBody Location location){
+		return locsrv.addLocation(location);
 	}
 }

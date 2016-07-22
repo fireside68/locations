@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 import com.cooksys.locations.model.GetAllAreasResponse;
 import com.cooksys.locations.model.GetAreaResponse;
 import com.cooksys.locations.repository.AreaRepository;
+import com.cooksys.locations.repository.LocationRepository;
 
 @Service
 public class AreaService {
 	
 	@Autowired
 	AreaRepository repo;
+	
+	@Autowired
+	LocationRepository locRepo;
 	
 	public List<GetAllAreasResponse> getAll(){
 		return GetAllAreasResponse.listAll(repo.findAll());

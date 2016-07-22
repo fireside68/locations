@@ -60,4 +60,9 @@ public class LocationService {
 		location.setHits(location.getHits() + 1);
 		repo.save(location);		
 	}
+
+	public Location addLocation(Location location) {
+		repo.save(location);
+		return location;
+	}
 }

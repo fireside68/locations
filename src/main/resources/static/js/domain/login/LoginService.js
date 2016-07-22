@@ -4,19 +4,19 @@ angular.module('app').service('LoginService', ['$http', function($http){
 
 	var srv = this;
 
-	srv.user = function() {
-		var user = {
-			"username":srv.username,
-			"admin":srv.admin
-		}
-	};
-
+	var isLoggedIn = false;
 
 	srv.getLogin = function(login) {
 
 		return $http.post(url + 'login', login)
 
 	};
+	
+	srv.checkLogin = function() {
+		return isLoggedIn
+	}
 
-
+	srv.setLoggedIn = function(flag){
+		isLoggedIn = flag
+	}
 }]);

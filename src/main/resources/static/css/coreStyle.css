@@ -1,6 +1,13 @@
 body{
-	background-image: url("/img/grandcanyon.jpg");
 	background-repeat: no-repeat;
 	background-attachment: fixed;
     background-position: center;
+}
+
+body img {
+	left: 0;
+	top: 0;
+	width: 100vw;
+	height: auto;
+	opacity: 0.5;
 }

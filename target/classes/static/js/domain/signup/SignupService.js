@@ -2,6 +2,6 @@ angular.module('app').service('SignupService', ['$http', function(SignupService,
 
 	var url = 'user/';
 	
-	this.addUser = function() { return $http.post(url + 'addUser') };
+	this.addUser = function(user) { return $http.post(url + 'addUser'), user };
 	
 }]);

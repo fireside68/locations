@@ -11,15 +11,14 @@ angular.module('app').controller(
 	  }
 	  LoginService.getLogin(login)
 		.then(function(result) {
-			 var response = result.data;
-			 console.dir(response);
-			 if(response.username === 'unregistered'){
+			 ctrl.response = result.data;
+			 if(ctrl.response.username === 'unregistered'){
 				 $location.path('/login/userNotFoundTemplate.html');
-			 } else if(response.username === 'invalid'){
+			 } else if(ctrl.response.username === 'invalid'){
 				 $location.path('/login/loginUnsuccessfulTemplate.html');
 			 }else {
-				 LoginService.user(response)
-				 if(response.admin === true){
+				 LoginService.setLoggedIn(true)
+				 if(ctrl.response.admin === true){
 					 $timeout(function() { $location.path('/admin') }, 1000)
 				} else {
 					$location.path('/user')

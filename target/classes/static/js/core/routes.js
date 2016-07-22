@@ -15,18 +15,18 @@ angular.module('app')
 		templateUrl: baseRoute + 'user/userTemplate.html',
 		controller: 'UserController',
 		controllerAs: 'userController',
-		loginRequired: true,
 		resolve: {
-			allUsers: function(UserService){
-				return UserService.getAllUsers();
-			}
+			factory: checkRouting
 		}
 	}).
 	when('/user/findUser/:username', {
 
 		templateUrl: baseRoute + 'user/userDetailTemplate.html',
 		controller: 'UserDetailController',
-		controllerAs: 'userDetailController'
+		controllerAs: 'userDetailController',
+		resolve: {
+			factory: checkRouting
+		}
 	}).
   when('/login', {
     templateUrl: baseRoute + '/login/loginTemplate.html',
@@ -47,8 +47,15 @@ angular.module('app')
 	  templateUrl: baseRoute + '/admin/adminTemplate.html',
 	  controller: 'AdminController',
 	  controllerAs: 'adminController',
-	  loginRequired: true
+	  resolve: {
+		  factory: function($q, $http, $rootScope, $location, AdminService, LoginService) {
+			  getLocations($rootScope, $http, AdminService)
+			  checkRouting($q, $rootScope, $location, LoginService)
+			  
+		  }
+	  }
   }).
+
   when('/signup', {
 	  templateUrl: baseRoute + '/signup/signupTemplate.html',
 	  controller: 'SignupController',
@@ -56,3 +63,20 @@ angular.module('app')
   }).
 	otherwise('/home');
 }])
+
+var getLocations = function($rootScope, $http, AdminService) {
+	AdminService.getAllLocations().then(function(result) {	
+		$rootScope.locationsList =  result.data
+	})
+	
+	AdminService.getAllAreas().then(function(result){
+		$rootScope.areasList = result.data
+	})
+}
+
+var checkRouting = function($q, $rootScope, $location, LoginService){
+	if(LoginService.checkLogin() === false){
+		alert("You must be logged in to access this page")
+		$location.path('/home')
+	}
+}
