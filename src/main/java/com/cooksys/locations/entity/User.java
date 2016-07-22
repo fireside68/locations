@@ -18,7 +18,7 @@ public class User
 	@GeneratedValue
 	private Long id;
 	
-	@Column(name="username", unique=true, nullable=false)
+	@Column(name="username", unique=true)
 	private String username;
 	
 	@Column(name="password")

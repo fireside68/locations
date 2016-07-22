@@ -6,16 +6,14 @@ public class GetUserResponse {
 
 	private String username;
 	private String password;
-	private String role;
 
 	public GetUserResponse() {
 		super();
 	}
 
-	public GetUserResponse(String username, String password, String role) {
+	public GetUserResponse(String username, String password) {
 		this.username = username;
 		this.password = password;
-		this.role = role;
 	}
 
 	public String getUsername() {
@@ -33,20 +31,12 @@ public class GetUserResponse {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	public String getRole() {
-		return role;
-	}
-	
-	public void setRole(String role) {
-		this.role = role;
-	}
 
 	public static GetUserResponse getUser(User user) {
 		if (user == null) {
 			return null;
 		} else
-			return new GetUserResponse(user.getUsername(), user.getPassword(), user.getRole().getRole());
+			return new GetUserResponse(user.getUsername(), user.getPassword());
 	}
 
 	@Override
@@ -54,7 +44,6 @@ public class GetUserResponse {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -73,11 +62,6 @@ public class GetUserResponse {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (role == null) {
-			if (other.role != null)
-				return false;
-		} else if (!role.equals(other.role))
-			return false;
 		if (username == null) {
 			if (other.username != null)
 				return false;
@@ -85,6 +69,14 @@ public class GetUserResponse {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "GetUserResponse [username=" + username + ", password=" + password + "]";
+	}
+	
+	
+	
 	
 	
 }
