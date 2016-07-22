@@ -1,6 +1,6 @@
 package com.cooksys.locations.entity;
 
-import java.sql.Date;
+
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,6 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.Date;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -43,7 +47,9 @@ public class Location {
 	@Column(name="description")
 	private String description;
 	
-	@Column(name="updated")
+	
+	private Date dateCreated;
+	
 	private Date updated;
 
 	public Location() {
@@ -63,11 +69,6 @@ public class Location {
 		this.updated = updated;
 	}
 
-	@Override
-	public String toString() {
-		return "Location [id=" + id + ", title=" + title + ", hits=" + hits + ", conversions=" + conversions + ", area="
-				+ area + ", users=" + users + ", description=" + description + ", updated=" + updated + "]";
-	}
 
 	public Long getId() {
 		return id;
@@ -124,7 +125,19 @@ public class Location {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	@CreationTimestamp
+	@Column(name="date_created")
+	public Date getDateCreated() {
+		return dateCreated;
+	}
 
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+	@UpdateTimestamp
+	@Column(name="date_updated")
 	public Date getUpdated() {
 		return updated;
 	}
@@ -199,6 +212,14 @@ public class Location {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Location [title=" + title + ", hits=" + hits + ", conversions=" + conversions + ", area=" + area
+				+ ", users=" + users + ", description=" + description + ", dateCreated=" + dateCreated + ", updated="
+				+ updated + "]";
+	}
+	
 	
 	
 }

@@ -65,7 +65,7 @@ angular.module('app')
 }])
 
 var getLocations = function($rootScope, $http, AdminService) {
-	AdminService.getAllLocations().then(function(result) {	
+	AdminService.getUrlModels().then(function(result) {	
 		$rootScope.locationsList =  result.data
 	})
 	

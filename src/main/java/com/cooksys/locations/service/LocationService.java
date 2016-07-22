@@ -1,5 +1,6 @@
 package com.cooksys.locations.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.cooksys.locations.entity.Area;
 import com.cooksys.locations.entity.Location;
+import com.cooksys.locations.model.GetUrlDetailsModel;
 import com.cooksys.locations.repository.LocationRepository;
 
 @Service
@@ -64,5 +66,14 @@ public class LocationService {
 	public Location addLocation(Location location) {
 		repo.save(location);
 		return location;
+	}
+	
+	public GetUrlDetailsModel getUrlModel(String title){
+		return GetUrlDetailsModel.createModel(repo.findByTitle(title));
+	}
+	
+	public List<GetUrlDetailsModel> getUrlModels(){
+		List<Location> temp = repo.findAll();
+		return GetUrlDetailsModel.listAllUrls(temp);
 	}
 }

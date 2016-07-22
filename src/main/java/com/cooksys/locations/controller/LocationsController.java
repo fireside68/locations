@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cooksys.locations.entity.Area;
 import com.cooksys.locations.entity.Location;
+import com.cooksys.locations.model.GetUrlDetailsModel;
 import com.cooksys.locations.service.LocationService;
 
 @RestController
@@ -35,26 +36,36 @@ public class LocationsController {
 		return locsrv.findByArea(area);
 	}
 
-	
 	@RequestMapping("/conversionRate/{title}")
-	public @ResponseBody Double conversionRate(@PathVariable String title){
+	public @ResponseBody Double conversionRate(@PathVariable String title) {
 		return locsrv.conversionRate(title);
 	}
-	
+
 	@RequestMapping("/addHits")
-	public @ResponseBody Location addHits(@RequestBody Location location){
+	public @ResponseBody Location addHits(@RequestBody Location location) {
 		locsrv.incrementHits(location);
 		return location;
 	}
-	
+
 	@RequestMapping("/decrementHits")
-	public @ResponseBody Location decrementHits(@RequestBody Location location){
+	public @ResponseBody Location decrementHits(@RequestBody Location location) {
 		locsrv.decrementHits(location);
 		return location;
 	}
-	
+
 	@RequestMapping(value = "/addLocation", method = RequestMethod.POST)
-	public @ResponseBody Location addLocation(@RequestBody Location location){
+	public @ResponseBody Location addLocation(@RequestBody Location location) {
 		return locsrv.addLocation(location);
 	}
+	
+	@RequestMapping("/getUrlModel/{title}")
+	public @ResponseBody GetUrlDetailsModel getUrlModel(@PathVariable String title){
+		return locsrv.getUrlModel(title);
+	}
+
+	@RequestMapping("/allUrlModels")
+	public @ResponseBody List<GetUrlDetailsModel> getUrlModels() {
+		return locsrv.getUrlModels();
+	}
+
 }
