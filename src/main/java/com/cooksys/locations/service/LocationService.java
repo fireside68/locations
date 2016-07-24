@@ -1,6 +1,7 @@
 package com.cooksys.locations.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -40,6 +41,7 @@ public class LocationService {
 			return;
 		}
 		location.setHits(location.getHits() + 1);
+		location.setUpdated(new Date());
 		repo.save(location);
 	}
 	
@@ -53,6 +55,7 @@ public class LocationService {
 			return;
 		}
 		location.setHits(location.getHits() - 1);
+		location.setUpdated(new Date());
 		repo.save(location);
 		
 	}
@@ -60,10 +63,13 @@ public class LocationService {
 	public void addConversion(Location location) {
 		location.setConversions(location.getConversions() + 1);
 		location.setHits(location.getHits() + 1);
+		location.setUpdated(new Date());
 		repo.save(location);		
 	}
 
 	public Location addLocation(Location location) {
+		location.setDateCreated(new Date());
+		location.setUpdated(new Date());
 		repo.save(location);
 		return location;
 	}
