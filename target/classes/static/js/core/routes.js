@@ -50,12 +50,20 @@ angular.module('app')
 	  resolve: {
 		  factory: function($q, $http, $rootScope, $location, AdminService, LoginService) {
 			  getLocations($rootScope, $http, AdminService)
+			  getAllAreas($rootScope, $http, AdminService)
 			  checkRouting($q, $rootScope, $location, LoginService)
 			  
 		  }
 	  }
   }).
-
+  when('/location/getUrlModel/:title', {
+	  templateUrl: baseRoute + '/admin/locations/locationTemplate.html',
+	  controller: 'LocationController',
+	  controllerAs: 'locationController',
+	  resolve: {
+		  factory: checkRouting
+	  }
+  }).
   when('/signup', {
 	  templateUrl: baseRoute + '/signup/signupTemplate.html',
 	  controller: 'SignupController',
@@ -68,8 +76,11 @@ var getLocations = function($rootScope, $http, AdminService) {
 	AdminService.getUrlModels().then(function(result) {	
 		$rootScope.locationsList =  result.data
 	})
-	
-	AdminService.getAllAreas().then(function(result){
+}
+
+var getAllAreas = function($rootScope, $http, AdminService) {
+	AdminService.getAllAreas().then(function(result) {
+		console.dir(result.data)
 		$rootScope.areasList = result.data
 	})
 }

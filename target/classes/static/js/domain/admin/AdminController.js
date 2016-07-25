@@ -4,23 +4,20 @@ angular.module('app')
 		 function(AdminService, $location){
 
 	var ctrl = this;
-
+	
 	ctrl.url = $location.path();
 	
-	/*ctrl.newLocation = function(){
-		let newLocation = {
+	ctrl.addLocation = function() {
+		var newLocation = {
+			"area":ctrl.area,
 			"title":ctrl.title,
 			"description":ctrl.description
 		}
-		return newLocation
-	}*/
 	
-
-	
-	ctrl.addLocation = function() {
-		console.dir(ctrl.newLocation)
-		AdminService.addLocation(ctrl.newLocation).then(function(result){
+		AdminService.addLocation(newLocation).then(function(result){
 			ctrl.location = result.data
+			alert(ctrl.location.toString())
+			console.dir(ctrl.location)
 		})
 	}
 }])

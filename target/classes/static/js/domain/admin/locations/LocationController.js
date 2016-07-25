@@ -2,20 +2,24 @@ angular.module('app').controller('LocationController', ['LocationService', '$rou
 	
 	var ctrl = this
 	
-	LocationService.
+	LocationService.getUrlModel($routeParams.title)
+	.then(function(result) {
+		console.dir(result.data)
+		ctrl.location = result.data
+	})
+
 	
-	ctrl.location = function() {
+	ctrl.updateLocation = function() {
 		var location = {
 			"area": ctrl.area,
 			"title": ctrl.title,
 			"description": ctrl.description,
-			"dateCreated": ctrl.dateCreated,
-			"dateUpdated": ctrl.dateUpdated
 		}
 		
-		LocationService.getUrlModel(ctrl.area)
-		.then(function(result) {
-			ctrl.response = result.data
-		})
-	}
+		LocationService.updateLocation(location).then(function(result){
+			ctrl.respone = result.data
+			alert(result.data)
+		})	
+		}
+
 }])

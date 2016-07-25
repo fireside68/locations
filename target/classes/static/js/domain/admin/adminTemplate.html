@@ -2,7 +2,7 @@
 	<div class="col-md-10 col-md-offset-1">
 
 		<div class="jumbotron">
-			<h1>{{adminController.url}}</h1>
+			<h1>{{adminController.url}}{{AdminService.user.username}}</h1>
 			<a href="#/home">Home Page</a>
 		</div>
 
@@ -23,24 +23,42 @@
 						<h1>Home</h1>
 						<p></p>
 					</div>
-					
-				<!-- Generate URL Tab -->
-					<div class="tab-pane" id="generateURL">
+
+					<!-- Generate Location Tab -->
+					<div class="tab-pane" id="generateLocation">
 						<h1>Generate URL</h1>
 						<form role="form" ng-submit="adminController.addLocation()">
 							<div class="form-group">
-								<label for="title">Title</label> <input type="title"
-									class="form-control" id="urlTitle" ng-model="adminController.newLocation.title">
+								<label for="title">Title</label> <input type="text"
+									class="form-control" id="urlTitle"
+									ng-model="adminController.newLocation.title">
 							</div>
 							<div class="form-group">
-								<label for="pwd">Description:</label> <input type="description"
-									class="form-control" id="urlDescription" ng-model="adminController.newLocation.description">
+								<label for="pwd">Description:</label> <input type="text"
+									class="form-control" id="urlDescription"
+									ng-model="adminController.newLocation.description">
 							</div>
-							<button type="submit" class="btn btn-default">Submit</button>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Area</label>
+								<div class="col-lg-8">
+									<div class="ui-select">
+										<select id="urlArea" class="form-control"
+											ng-model="adminController.newLocation.area">
+											<option ng-repeat="area in areasList">{{area.area}}</option>
+										</select>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-3 control-label"></label>
+								<div class="col-md-8">
+									<button type="submit" class="btn btn-default">Submit</button>
+								</div>
+							</div>
 						</form>
 					</div>
-					
-				<!-- List URLs Tab -->
+					<!-- List URLs Tab -->
 					<div class="tab-pane" id="urlList">
 						<h1>URL List</h1>
 						<div class="table-responsive">
@@ -56,7 +74,7 @@
 								</thead>
 								<tr ng-repeat="location in locationsList">
 									<td><span class="glyphicon glyphicon-globe"></span>{{location.area}}</td>
-									<td>{{location.title}}</td>
+									<td><a ng-href="#location/getUrlModel/{{location.title}}">{{location.title}}</a></td>
 									<td>{{location.description}}</td>
 									<td>{{location.dateCreated}}</td>
 									<td>{{locaiton.dateUpdated}}</td>
@@ -64,7 +82,7 @@
 							</table>
 						</div>
 					</div>
-				<!-- List Areas Tab -->
+					<!-- List Areas Tab -->
 					<div class="tab-pane" id="areas">
 						<h1>Areas</h1>
 						<div class="table-responsive">
@@ -80,7 +98,7 @@
 							</table>
 						</div>
 					</div>
-				<!-- Da Ba Dee -->
+					<!-- Da Ba Dee -->
 					<div class="tab-pane" id="blue">
 						<h1>Blue</h1>
 						<p>blue blue blue blue blue</p>
@@ -96,4 +114,5 @@
 					})
 			</script>
 		</div>
+	</div>
 	</div>

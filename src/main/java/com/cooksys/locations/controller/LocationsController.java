@@ -58,6 +58,11 @@ public class LocationsController {
 		return locsrv.addLocation(location);
 	}
 	
+	@RequestMapping(value = "/updateLocation", method = RequestMethod.POST)
+	public @ResponseBody Location updateLocation(@RequestBody Location location){
+		return locsrv.updateLocation(location);
+	}
+	
 	@RequestMapping("/getUrlModel/{title}")
 	public @ResponseBody GetUrlDetailsModel getUrlModel(@PathVariable String title){
 		return locsrv.getUrlModel(title);

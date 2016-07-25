@@ -1,6 +1,6 @@
 angular.module('app').controller(
 	'LoginController',
-	['LoginService', '$location', '$window', '$timeout',  function(LoginService, $location, $window, $timeout){
+	['LoginService', '$location', '$window', '$timeout', 'AdminService',  function(LoginService, $location, $window, $timeout, AdminService){
 
 	var ctrl = this;
 
@@ -18,7 +18,8 @@ angular.module('app').controller(
 				 $location.path('/login/loginUnsuccessfulTemplate.html');
 			 }else {
 				 LoginService.setLoggedIn(true)
-				 if(ctrl.response.admin === true){
+				 if(ctrl.response.admin === true){	
+					 AdminService.user = ctrl.response.username
 					 $timeout(function() { $location.path('/admin') }, 1000)
 				} else {
 					$location.path('/user')

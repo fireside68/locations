@@ -2,6 +2,7 @@ angular.module('app').service('AdminService', ['$http', function($http){
 	
 	var url = '/location'
 	var areaUrl = '/area'
+	var user = {}
 	
 	this.getAllUsers = function() { return $http.get(url + '/allUsers') };
 	this.getUrlModels = function() { return $http.get('/location/allUrlModels/') }

@@ -74,6 +74,13 @@ public class LocationService {
 		return location;
 	}
 	
+	public Location updateLocation(Location location) {
+		location.setId(repo.findByTitle(location.getTitle()).getId());
+		location.setUpdated(new Date());
+		repo.save(location);
+		return location;
+	}
+	
 	public GetUrlDetailsModel getUrlModel(String title){
 		return GetUrlDetailsModel.createModel(repo.findByTitle(title));
 	}
