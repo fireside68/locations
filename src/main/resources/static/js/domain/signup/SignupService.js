@@ -1,7 +1,7 @@
-angular.module('app').service('SignupService', ['$http', function(SignupService, $http){
+angular.module('app').service('SignupService', ['$http', function($http){
 
-	var url = 'user/';
+	var url = 'user/addUser';
 	
-	this.addUser = function(user) { return $http.post(url + 'addUser'), user };
+	this.addUser = function(user) { return $http.post(url, user) };
 	
 }]);

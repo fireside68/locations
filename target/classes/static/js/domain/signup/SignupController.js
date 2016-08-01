@@ -1,4 +1,4 @@
-angular.module('app').controller('SignupController', ['SignupService', function(UserDetailService)
+angular.module('app').controller('SignupController', ['SignupService', function(SignupService)
 {
 
 	var ctrl = this;
@@ -11,10 +11,11 @@ angular.module('app').controller('SignupController', ['SignupService', function(
 			"username": ctrl.username,
 			"password": ctrl.password
 		}
-	}
 
 	SignupService.addUser(newUser).then(function(result){
 		ctrl.user = result.data;
-	});
+	})
+	
+	};
 
 	}]);
