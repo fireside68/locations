@@ -1,4 +1,4 @@
-angular.module('app').controller('SignupController', ['SignupService', function(SignupService)
+angular.module('app').controller('SignupController', ['SignupService', '$scope', '$http', '$location', function(SignupService, $scope, $http, $location)
 {
 
 	var ctrl = this;
@@ -6,7 +6,7 @@ angular.module('app').controller('SignupController', ['SignupService', function(
 	ctrl.here = "SignupController reporting for duty"
 	
 	
-	ctrl.newUser = function() {
+		$scope.newUser = function() {
 		var newUser = {
 			"username": ctrl.username,
 			"password": ctrl.password
@@ -14,6 +14,7 @@ angular.module('app').controller('SignupController', ['SignupService', function(
 
 	SignupService.addUser(newUser).then(function(result){
 		ctrl.user = result.data;
+		console.dir(ctrl.user)
 	})
 	
 	};

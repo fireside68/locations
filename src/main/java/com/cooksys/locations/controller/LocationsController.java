@@ -36,22 +36,22 @@ public class LocationsController {
 		return locsrv.findByArea(area);
 	}
 
-	@RequestMapping("/conversionRate/{title}")
-	public @ResponseBody Double conversionRate(@PathVariable String title) {
-		return locsrv.conversionRate(title);
-	}
-
-	@RequestMapping("/addHits")
-	public @ResponseBody Location addHits(@RequestBody Location location) {
-		locsrv.incrementHits(location);
-		return location;
-	}
-
-	@RequestMapping("/decrementHits")
-	public @ResponseBody Location decrementHits(@RequestBody Location location) {
-		locsrv.decrementHits(location);
-		return location;
-	}
+//	@RequestMapping("/conversionRate/{title}")
+//	public @ResponseBody Double conversionRate(@PathVariable String title) {
+//		return locsrv.conversionRate(title);
+//	}
+//
+//	@RequestMapping("/addHits")
+//	public @ResponseBody Location addHits(@RequestBody Location location) {
+//		locsrv.incrementHits(location);
+//		return location;
+//	}
+//
+//	@RequestMapping("/decrementHits")
+//	public @ResponseBody Location decrementHits(@RequestBody Location location) {
+//		locsrv.decrementHits(location);
+//		return location;
+//	}
 
 	@RequestMapping(value = "/addLocation", method = RequestMethod.POST)
 	public @ResponseBody Location addLocation(@RequestBody Location location) {

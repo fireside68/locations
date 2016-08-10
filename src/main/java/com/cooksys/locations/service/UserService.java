@@ -1,5 +1,6 @@
 package com.cooksys.locations.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cooksys.locations.entity.User;
-import com.cooksys.locations.model.GetAllUsersResponse;
 import com.cooksys.locations.model.GetUserResponse;
 import com.cooksys.locations.model.LoginResponse;
 import com.cooksys.locations.repository.LocationRepository;
@@ -27,56 +27,59 @@ public class UserService {
 
 	private Logger log = LoggerFactory.getLogger(UserService.class);
 
-	private GetUserResponse gur;
-
-	public List<GetAllUsersResponse> getAll() {
-		return GetAllUsersResponse.listAll(repo.findAll());
+//	public List<GetAllUsersResponse> getAll() {
+//		return GetAllUsersResponse.listAll(repo.findAll());
+//	}
+	
+	public List<User> getAll() {
+		return repo.findAll();
 	}
 
-	public GetUserResponse getUser(String username) {
-		return GetUserResponse.getUser(repo.findByUsername(username));
+	
+	public User getUserByUsername(String username){
+		return repo.findByUsername(username);
 	}
 
-	public Boolean verifyPassword(GetUserResponse gur) {
-		GetUserResponse temp = getUser(gur.getUsername());
-		if ((temp != null) && (temp.equals(gur))) {
+	public Boolean verifyPassword(User user) {
+		User temp = getUserByUsername(user.getUsername());
+		if ((temp != null) && (temp.equals(user))) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public LoginResponse loginService(GetUserResponse user) {
-		LoginResponse lr = new LoginResponse();
+	public Object loginService(User user) {
 		if (repo.findByUsername(user.getUsername()) == null) {
-			lr.setUsername("unregistered");
-			return lr;
+			return "unregistered";
 		} else {
 			Boolean verify = verifyPassword(user);
 			if (verify == false) {
-				lr.setUsername("invalid");
-				return lr;
+				return "invalid";
 			} else {
-				lr.setUsername(user.getUsername());
-				String test = repo.findByUsername(user.getUsername()).getRole().getRole();
-				log.debug("{}", test);
-				if (test.equals("admin")) {
-					lr.setAdmin(true);
-				}
-				return lr;
+				return user;
 			}
 		}
 
 	}
 
 	public User addUser(User user) {
-		if (locRepo.findByTitle(user.getTitle()) != null) {
-			locsrv.addConversion(user.getLocation());
-			repo.save(user);
-			return user;
+		User temp = new User();
+		if (user.getLocation() != null) {
+			//locsrv.addConversion(user.getLocation());
+			temp.setUsername(user.getUsername());
+			temp.setPassword(user.getPassword());
+			temp.setDateCreated(new Date());
+			temp.setDateUpdated(new Date());
+			repo.save(temp);
+			return temp;
 		} else {
-			repo.save(user);
-			return user;
+			temp.setUsername(user.getUsername());
+			temp.setPassword(user.getPassword());
+			temp.setDateCreated(new Date());
+			temp.setDateUpdated(new Date());
+			repo.save(temp);
+			return temp;
 		}
 
 	}

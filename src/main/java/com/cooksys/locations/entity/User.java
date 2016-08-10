@@ -27,7 +27,7 @@ public class User
 	private String password;
 	
 	@ManyToOne
-	@JoinColumn(name="role")
+	@JoinColumn(name="role_id")
 	private UserRole role;
 	
 	@Column(name="date_created")
@@ -38,7 +38,7 @@ public class User
 	
 	@ManyToOne
 	@JsonIgnore
-	@JoinColumn(name="user_location")
+	@JoinColumn(name="area")
 	private Location location;
 
 	public User() {

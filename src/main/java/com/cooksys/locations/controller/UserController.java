@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cooksys.locations.entity.User;
-import com.cooksys.locations.model.GetAllUsersResponse;
-import com.cooksys.locations.model.GetUserResponse;
-import com.cooksys.locations.model.LoginResponse;
 import com.cooksys.locations.service.UserService;
 
 @RestController
@@ -28,18 +25,23 @@ public class UserController {
 	private Logger log = LoggerFactory.getLogger(LocationsController.class);
 
 	
+//	@RequestMapping("allUsers")
+//	public @ResponseBody List<GetAllUsersResponse> showAllUsers() {
+//		return usrsrv.getAll();
+//	}
+	
 	@RequestMapping("allUsers")
-	public @ResponseBody List<GetAllUsersResponse> showAllUsers() {
+	public @ResponseBody List<User> getAllUsers() {
 		return usrsrv.getAll();
 	}
 	
 	@RequestMapping("findUser/{username}")
-	public GetUserResponse findByUsername(@PathVariable String username) {
-		return usrsrv.getUser(username);
+	public User findByUsername(@PathVariable String username) {
+		return usrsrv.getUserByUsername(username);
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public LoginResponse loginUser(@RequestBody GetUserResponse user) {
+	public Object loginUser(@RequestBody User user) {
 		return usrsrv.loginService(user);
 	}
 	

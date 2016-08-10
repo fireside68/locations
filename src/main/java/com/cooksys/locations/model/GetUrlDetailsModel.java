@@ -82,14 +82,14 @@ public class GetUrlDetailsModel {
 
 	public static GetUrlDetailsModel createModel(Location location){
 		Area space = location.getArea();
-		return new GetUrlDetailsModel(space.getArea(), location.getTitle(), location.getDescription(), location.getDateCreated(), location.getUpdated());
+		return new GetUrlDetailsModel(space.getArea(), location.getTitle(), location.getDescription(), location.getDateCreated(), location.getDateUpdated());
 		
 	}
 	
 	public static List<GetUrlDetailsModel> listAllUrls(List<Location> list){
 		ArrayList<GetUrlDetailsModel> temp = new ArrayList<GetUrlDetailsModel>();
 		for(Location location : list){
-			temp.add(new GetUrlDetailsModel(location.getArea().getArea(), location.getTitle(), location.getDescription(), location.getDateCreated(), location.getUpdated()));
+			temp.add(new GetUrlDetailsModel(location.getArea().getArea(), location.getTitle(), location.getDescription(), location.getDateCreated(), location.getDateUpdated()));
 		}
 		return temp;
 	}

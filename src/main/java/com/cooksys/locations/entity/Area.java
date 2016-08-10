@@ -17,41 +17,34 @@ public class Area {
 	@GeneratedValue
 	private Long id;
 	
-	@Column(name="area")
+	@Column(name="area", unique=true)
 	private Integer area;
-	
-	@OneToMany(mappedBy="area")
-	private List<Location> locations;
 
 	public Area() {
 		super();
 	}
 
-	public Area(Integer area) {
+	public Area(Long id, Integer area) {
+		super();
+		this.id = id;
 		this.area = area;
 	}
-	
-	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Integer getArea() {
 		return area;
 	}
 
-	@Override
-	public String toString() {
-		return "Area [area=" + area + "]";
+	public void setArea(Integer area) {
+		this.area = area;
 	}
-	
-
-	public List<Location> getLocations() {
-		return locations;
-	}
-
-	public void setLocations(List<Location> locations) {
-		this.locations = locations;
-	}
-	
-	
 
 	@Override
 	public int hashCode() {
@@ -83,8 +76,6 @@ public class Area {
 			return false;
 		return true;
 	}
-	
-	
 	
 	
 }

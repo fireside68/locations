@@ -29,23 +29,17 @@ public class Location {
 	@Column(name="title", unique=true)
 	private String title;
 	
-	@Column (name="hits")
-	private Integer hits;
-	
-	@Column (name="conversions")
-	private Integer conversions;
-	
-	@ManyToOne
-	@JsonIgnore
-	@JoinColumn(name="location_area")
-	private Area area;
-	
-	@OneToMany(mappedBy="location")
-	@JsonIgnore
-	private List<User> users;
-	
 	@Column(name="description")
 	private String description;
+	
+	@ManyToOne(targetEntity = Area.class)
+	@JsonIgnore
+	@JoinColumn(name="area")
+	private Area area;
+	
+	@ManyToOne(targetEntity = Metrics.class)
+	@JoinColumn(name="metrics")
+	private Metrics metrics;
 	
 	@Column(name="date_created")
 	private Date dateCreated;
@@ -57,27 +51,14 @@ public class Location {
 		super();
 	}
 
-	public Location(Long id, String title, Integer hits, Integer conversions, Area area, String description,
-			Date dateCreated, Date dateUpdated) {
+	public Location(Long id, String title, String description, Area area, Metrics metrics, Date dateCreated,
+			Date dateUpdated) {
 		super();
 		this.id = id;
 		this.title = title;
-		this.hits = hits;
-		this.conversions = conversions;
-		this.area = area;
 		this.description = description;
-		this.dateCreated = dateCreated;
-		this.dateUpdated = dateUpdated;
-	}
-
-	public Location(String title, Integer hits, Integer conversions, Area area, String description, Date dateCreated,
-			Date dateUpdated) {
-		super();
-		this.title = title;
-		this.hits = hits;
-		this.conversions = conversions;
 		this.area = area;
-		this.description = description;
+		this.metrics = metrics;
 		this.dateCreated = dateCreated;
 		this.dateUpdated = dateUpdated;
 	}
@@ -98,20 +79,12 @@ public class Location {
 		this.title = title;
 	}
 
-	public Integer getHits() {
-		return hits;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setHits(Integer hits) {
-		this.hits = hits;
-	}
-
-	public Integer getConversions() {
-		return conversions;
-	}
-
-	public void setConversions(Integer conversions) {
-		this.conversions = conversions;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Area getArea() {
@@ -122,20 +95,12 @@ public class Location {
 		this.area = area;
 	}
 
-	public List<User> getUsers() {
-		return users;
+	public Metrics getMetrics() {
+		return metrics;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
+	public void setMetrics(Metrics metrics) {
+		this.metrics = metrics;
 	}
 
 	public Date getDateCreated() {
@@ -159,12 +124,11 @@ public class Location {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((area == null) ? 0 : area.hashCode());
-		result = prime * result + ((conversions == null) ? 0 : conversions.hashCode());
 		result = prime * result + ((dateCreated == null) ? 0 : dateCreated.hashCode());
 		result = prime * result + ((dateUpdated == null) ? 0 : dateUpdated.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((hits == null) ? 0 : hits.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((metrics == null) ? 0 : metrics.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
@@ -183,11 +147,6 @@ public class Location {
 				return false;
 		} else if (!area.equals(other.area))
 			return false;
-		if (conversions == null) {
-			if (other.conversions != null)
-				return false;
-		} else if (!conversions.equals(other.conversions))
-			return false;
 		if (dateCreated == null) {
 			if (other.dateCreated != null)
 				return false;
@@ -203,15 +162,15 @@ public class Location {
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
-		if (hits == null) {
-			if (other.hits != null)
-				return false;
-		} else if (!hits.equals(other.hits))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
+			return false;
+		if (metrics == null) {
+			if (other.metrics != null)
+				return false;
+		} else if (!metrics.equals(other.metrics))
 			return false;
 		if (title == null) {
 			if (other.title != null)
@@ -220,14 +179,8 @@ public class Location {
 			return false;
 		return true;
 	}
+	
+	
 
-	@Override
-	public String toString() {
-		return "Location [id=" + id + ", title=" + title + ", hits=" + hits + ", conversions=" + conversions + ", area="
-				+ area + ", description=" + description + ", dateCreated=" + dateCreated + ", dateUpdated="
-				+ dateUpdated + "]";
-	}
-	
-	
 	
 }

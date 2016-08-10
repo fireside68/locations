@@ -36,47 +36,47 @@ public class LocationService {
 		return repo.findAll();
 	}
 	
-	public void incrementHits(Location location){
-		if(location == null){
-			return;
-		}
-		location.setHits(location.getHits() + 1);
-		location.setUpdated(new Date());
-		repo.save(location);
-	}
-	
-	public double conversionRate(String title){
-		Location location = repo.findByTitle(title);
-		return location.getConversions() / location.getHits();
-	}
+//	public void incrementHits(Location location){
+//		if(location == null){
+//			return;
+//		}
+//		location.setHits(location.getHits() + 1);
+//		location.setUpdated(new Date());
+//		repo.save(location);
+//	}
+//	
+//	public double conversionRate(String title){
+//		Location location = repo.findByTitle(title);
+//		return location.getConversions() / location.getHits();
+//	}
+//
+//	public void decrementHits(Location location) {
+//		if(location==null){
+//			return;
+//		}
+//		location.setHits(location.getHits() - 1);
+//		location.setUpdated(new Date());
+//		repo.save(location);
+//		
+//	}
 
-	public void decrementHits(Location location) {
-		if(location==null){
-			return;
-		}
-		location.setHits(location.getHits() - 1);
-		location.setUpdated(new Date());
-		repo.save(location);
-		
-	}
-
-	public void addConversion(Location location) {
-		location.setConversions(location.getConversions() + 1);
-		location.setHits(location.getHits() + 1);
-		location.setUpdated(new Date());
-		repo.save(location);		
-	}
+//	public void addConversion(Location location) {
+//		location.setConversions(location.getConversions() + 1);
+//		location.setHits(location.getHits() + 1);
+//		location.setDateUpdated(new Date());
+//		repo.save(location);		
+//	}
 
 	public Location addLocation(Location location) {
 		location.setDateCreated(new Date());
-		location.setUpdated(new Date());
+		location.setDateUpdated(new Date());
 		repo.save(location);
 		return location;
 	}
 	
 	public Location updateLocation(Location location) {
 		location.setId(repo.findByTitle(location.getTitle()).getId());
-		location.setUpdated(new Date());
+		location.setDateUpdated(new Date());
 		repo.save(location);
 		return location;
 	}
