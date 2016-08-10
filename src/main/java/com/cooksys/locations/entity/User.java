@@ -1,5 +1,7 @@
 package com.cooksys.locations.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,15 +26,15 @@ public class User
 	@Column(name="password")
 	private String password;
 	
-	@Column(name="area")
-	private Integer area;
-	
-	@Column(name="title")
-	private String title;
-	
 	@ManyToOne
 	@JoinColumn(name="role")
 	private UserRole role;
+	
+	@Column(name="date_created")
+	private Date dateCreated;
+	
+	@Column(name="date_updated")
+	private Date dateUpdated;
 	
 	@ManyToOne
 	@JsonIgnore
@@ -41,15 +43,18 @@ public class User
 
 	public User() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public User(String username, String password, Integer area, String title, UserRole role) {
+	public User(Long id, String username, String password, UserRole role, Date dateCreated, Date dateUpdated,
+			Location location) {
+		super();
+		this.id = id;
 		this.username = username;
 		this.password = password;
-		this.area = area;
-		this.title = title;
 		this.role = role;
+		this.dateCreated = dateCreated;
+		this.dateUpdated = dateUpdated;
+		this.location = location;
 	}
 
 	public Long getId() {
@@ -76,28 +81,28 @@ public class User
 		this.password = password;
 	}
 
-	public Integer getArea() {
-		return area;
-	}
-
-	public void setArea(Integer area) {
-		this.area = area;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
 	public UserRole getRole() {
 		return role;
 	}
 
 	public void setRole(UserRole role) {
 		this.role = role;
+	}
+
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+	public Date getDateUpdated() {
+		return dateUpdated;
+	}
+
+	public void setDateUpdated(Date dateUpdated) {
+		this.dateUpdated = dateUpdated;
 	}
 
 	public Location getLocation() {
@@ -112,10 +117,11 @@ public class User
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((area == null) ? 0 : area.hashCode());
+		result = prime * result + ((dateCreated == null) ? 0 : dateCreated.hashCode());
+		result = prime * result + ((dateUpdated == null) ? 0 : dateUpdated.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -129,10 +135,20 @@ public class User
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (area == null) {
-			if (other.area != null)
+		if (dateCreated == null) {
+			if (other.dateCreated != null)
 				return false;
-		} else if (!area.equals(other.area))
+		} else if (!dateCreated.equals(other.dateCreated))
+			return false;
+		if (dateUpdated == null) {
+			if (other.dateUpdated != null)
+				return false;
+		} else if (!dateUpdated.equals(other.dateUpdated))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (password == null) {
 			if (other.password != null)
@@ -144,11 +160,6 @@ public class User
 				return false;
 		} else if (!role.equals(other.role))
 			return false;
-		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
 		if (username == null) {
 			if (other.username != null)
 				return false;
@@ -159,9 +170,11 @@ public class User
 
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password + ", area=" + area + ", title=" + title
-				+ ", role=" + role + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role
+				+ ", dateCreated=" + dateCreated + ", dateUpdated=" + dateUpdated + ", location=" + location + "]";
 	}
-
 	
+	
+
+		
 }

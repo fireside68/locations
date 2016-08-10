@@ -47,28 +47,40 @@ public class Location {
 	@Column(name="description")
 	private String description;
 	
-	
+	@Column(name="date_created")
 	private Date dateCreated;
 	
-	private Date updated;
+	@Column(name="date_updated")
+	private Date dateUpdated;
 
 	public Location() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public Location(Long id, String title, Integer hits, Integer conversions, Area area, List<User> users,
-			String description, Date updated) {
+	public Location(Long id, String title, Integer hits, Integer conversions, Area area, String description,
+			Date dateCreated, Date dateUpdated) {
+		super();
 		this.id = id;
 		this.title = title;
 		this.hits = hits;
 		this.conversions = conversions;
 		this.area = area;
-		this.users = users;
 		this.description = description;
-		this.updated = updated;
+		this.dateCreated = dateCreated;
+		this.dateUpdated = dateUpdated;
 	}
 
+	public Location(String title, Integer hits, Integer conversions, Area area, String description, Date dateCreated,
+			Date dateUpdated) {
+		super();
+		this.title = title;
+		this.hits = hits;
+		this.conversions = conversions;
+		this.area = area;
+		this.description = description;
+		this.dateCreated = dateCreated;
+		this.dateUpdated = dateUpdated;
+	}
 
 	public Long getId() {
 		return id;
@@ -125,9 +137,7 @@ public class Location {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	@CreationTimestamp
-	@Column(name="date_created")
+
 	public Date getDateCreated() {
 		return dateCreated;
 	}
@@ -136,14 +146,12 @@ public class Location {
 		this.dateCreated = dateCreated;
 	}
 
-	@UpdateTimestamp
-	@Column(name="date_updated")
-	public Date getUpdated() {
-		return updated;
+	public Date getDateUpdated() {
+		return dateUpdated;
 	}
 
-	public void setUpdated(Date updated) {
-		this.updated = updated;
+	public void setDateUpdated(Date dateUpdated) {
+		this.dateUpdated = dateUpdated;
 	}
 
 	@Override
@@ -152,12 +160,12 @@ public class Location {
 		int result = 1;
 		result = prime * result + ((area == null) ? 0 : area.hashCode());
 		result = prime * result + ((conversions == null) ? 0 : conversions.hashCode());
+		result = prime * result + ((dateCreated == null) ? 0 : dateCreated.hashCode());
+		result = prime * result + ((dateUpdated == null) ? 0 : dateUpdated.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((hits == null) ? 0 : hits.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result + ((updated == null) ? 0 : updated.hashCode());
-		result = prime * result + ((users == null) ? 0 : users.hashCode());
 		return result;
 	}
 
@@ -180,6 +188,16 @@ public class Location {
 				return false;
 		} else if (!conversions.equals(other.conversions))
 			return false;
+		if (dateCreated == null) {
+			if (other.dateCreated != null)
+				return false;
+		} else if (!dateCreated.equals(other.dateCreated))
+			return false;
+		if (dateUpdated == null) {
+			if (other.dateUpdated != null)
+				return false;
+		} else if (!dateUpdated.equals(other.dateUpdated))
+			return false;
 		if (description == null) {
 			if (other.description != null)
 				return false;
@@ -200,24 +218,14 @@ public class Location {
 				return false;
 		} else if (!title.equals(other.title))
 			return false;
-		if (updated == null) {
-			if (other.updated != null)
-				return false;
-		} else if (!updated.equals(other.updated))
-			return false;
-		if (users == null) {
-			if (other.users != null)
-				return false;
-		} else if (!users.equals(other.users))
-			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Location [title=" + title + ", hits=" + hits + ", conversions=" + conversions + ", area=" + area
-				+ ", users=" + users + ", description=" + description + ", dateCreated=" + dateCreated + ", updated="
-				+ updated + "]";
+		return "Location [id=" + id + ", title=" + title + ", hits=" + hits + ", conversions=" + conversions + ", area="
+				+ area + ", description=" + description + ", dateCreated=" + dateCreated + ", dateUpdated="
+				+ dateUpdated + "]";
 	}
 	
 	
