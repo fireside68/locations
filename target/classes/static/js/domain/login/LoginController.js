@@ -12,13 +12,13 @@ angular.module('app').controller(
 	  LoginService.getLogin(login)
 		.then(function(result) {
 			 ctrl.response = result.data;
-			 if(ctrl.response.username === 'unregistered'){
+			 if(ctrl.response === 'unregistered'){
 				 $location.path('/login/userNotFoundTemplate.html');
-			 } else if(ctrl.response.username === 'invalid'){
+			 } else if(ctrl.response === 'invalid'){
 				 $location.path('/login/loginUnsuccessfulTemplate.html');
 			 }else {
 				 LoginService.setLoggedIn(true)
-				 if(ctrl.response.admin === true){	
+				 if(ctrl.response.role === 1){	
 					 AdminService.user = ctrl.response.username
 					 $timeout(function() { $location.path('/admin') }, 1000)
 				} else {

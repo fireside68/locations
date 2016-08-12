@@ -36,7 +36,7 @@ public class User
 	@Column(name="date_updated")
 	private Date dateUpdated;
 	
-	@ManyToOne
+	@ManyToOne(targetEntity=Location.class)
 	@JsonIgnore
 	@JoinColumn(name="area")
 	private Location location;

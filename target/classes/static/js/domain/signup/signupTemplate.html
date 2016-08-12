@@ -6,34 +6,29 @@
 		</div>
 	</div>
 	<div class="container-fluid">
-		<div class=form>
-			<form class="form-horizontal" name="signupForm" novalidate="" ng-submit="newUser()">
-				<div class="form-group">
-					<label for="inputName3" class="col-sm-2 control-label">Name</label>
-					<div class="col-sm-4">
-						<input class="form-control" type="text" name="username"
-							ng-model="signupController.username" ng-minlength="4" ng-maxlength="15" required>
-					</div>
-					<div ng-messages="signupForm.username.$error">
-					<p ng-message="minlength">Your username is too short.</p>
-					<p ng-message="maxlength">Your username is too long.</p>
-					<p ng-message="required">Your username is required.</p>
-					</div>"
-				</div>
-				<div class="form-group">
-					<label for="password" class="col-sm-2 control-label">Password</label>
-					<div class="col-sm-4">
-						<input class="form-control" name="password" type="password"
-							ng-model="signupController.password">
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn btn-success">Sign up</button>
-					</div>
-				</div>
-			</form>
-		</div>
+		  <div class="row">
+                <form name="adduser" ng-submit="newUser(adduser.$valid)">                   
+                    <div id="name-group" class="form-group-lg">
+                        <input type="text"
+                               required
+                               name="username"
+                               ng-model="signupController.username"
+                               class="form-control"
+                               placeholder="Username">
+                    </div>
+                    <div id="name-group" class="form-group-lg">
+                        <input type="password"
+                               required
+                               ng-model="signupController.password"
+                               name="password"                             
+                               class="form-control "
+                               placeholder="Password atleast 6 character">
+                    </div>
+                    <div id="name-group" class="form-group-lg">
+                        <button type="submit" class="form-control btn btn-info">Sign Up
+                       </button>
+                    </div>
+                </form>
+            </div>
 	</div>
-</div>
 </div>
